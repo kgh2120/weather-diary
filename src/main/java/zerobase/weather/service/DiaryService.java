@@ -92,4 +92,9 @@ public class DiaryService {
         diary.updateText(text);
 
     }
+
+    @Transactional
+    public void deleteDiary(LocalDate date) {
+        diaryRepository.deleteAllByDate(date);
+    }
 }
