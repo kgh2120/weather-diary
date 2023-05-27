@@ -14,10 +14,10 @@ import javax.transaction.Transactional;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class DiaryService {
@@ -40,6 +40,12 @@ public class DiaryService {
         diary.setDate(date);
 
         diaryRepository.save(diary);
+    }
+
+    public List<Diary> readDiary(LocalDate date) {
+
+        return diaryRepository.findAllByDate(date);
+
     }
 
     private Map<String,Object> getWeather() {
@@ -74,5 +80,16 @@ public class DiaryService {
         resultMap.put("temp",temp);
 
         return resultMap;
+    }
+
+    public List<Diary> readDiaries(LocalDate from, LocalDate to) {
+        return diaryRepository.findAllByDateBetween(from,to);
+    }
+
+    @Transactional
+    public void updateDiary(LocalDate date, String text) {
+        Diary diary = diaryRepository.getFirstByDate(date);
+        diary.updateText(text);
+
     }
 }

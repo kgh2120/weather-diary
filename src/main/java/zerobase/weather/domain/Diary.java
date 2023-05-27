@@ -23,4 +23,7 @@ public class Diary {
     private  double temperature;
 
 
+    public void updateText(String text) {
+        this.text = text;
+    }
 }
