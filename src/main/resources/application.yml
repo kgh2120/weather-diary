@@ -14,5 +14,9 @@ spring:
   config:
     import: secret.yml
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 logging:
   config: classpath:logback-spring.xml
