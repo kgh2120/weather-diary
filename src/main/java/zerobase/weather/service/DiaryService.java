@@ -43,16 +43,12 @@ public class DiaryService {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void createDiary(LocalDate date, String text) {
-        logger.info("Start create Diary");
-        log.info("Start create Diary");
         DateWeather dateWeather = getDateWeather(date);
 
         Diary diary = new Diary();
         diary.setDateWeather(dateWeather);
         diary.setText(text);
         diaryRepository.save(diary);
-        logger.info("end to  create Diary");
-        log.info("end create Diary");
     }
 
     private DateWeather getDateWeather(LocalDate date) {
@@ -63,6 +59,7 @@ public class DiaryService {
     @Transactional
     @Scheduled(cron = "0 0 1 * * *")
     public void saveDateWeather(){
+        logger.info("Save Weather Data");
         dateWeatherRepository.save(createDateWeatherFromApi());
     }
 
