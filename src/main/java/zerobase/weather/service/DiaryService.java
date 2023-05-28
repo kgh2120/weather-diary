@@ -4,12 +4,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import zerobase.weather.WeatherApplication;
 import zerobase.weather.domain.DateWeather;
 import zerobase.weather.domain.Diary;
 import zerobase.weather.repository.DateWeatherRepository;
@@ -35,15 +38,20 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final DateWeatherRepository dateWeatherRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(WeatherApplication.class);
+
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void createDiary(LocalDate date, String text) {
-
+        logger.info("Start create Diary");
+        log.info("Start create Diary");
         DateWeather dateWeather = getDateWeather(date);
 
         Diary diary = new Diary();
         diary.setDateWeather(dateWeather);
         diary.setText(text);
         diaryRepository.save(diary);
+        logger.info("end to  create Diary");
+        log.info("end create Diary");
     }
 
     private DateWeather getDateWeather(LocalDate date) {
@@ -68,6 +76,7 @@ public class DiaryService {
     }
 
     public List<Diary> readDiary(LocalDate date) {
+        logger.debug("read diary");
         return diaryRepository.findAllByDate(date);
 
     }

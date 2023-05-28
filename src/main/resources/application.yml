@@ -13,3 +13,6 @@ spring:
         format_sql: true
   config:
     import: secret.yml
+
+logging:
+  config: classpath:logback-spring.xml

@@ -38,3 +38,6 @@ out/
 
 ### secret
 src/main/resources/secret.yml
+
+### logs
+log
