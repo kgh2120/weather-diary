@@ -26,4 +26,11 @@ public class Diary {
     public void updateText(String text) {
         this.text = text;
     }
+
+    public void setDateWeather(DateWeather dateWeather) {
+        date = dateWeather.getDate();
+        weather = dateWeather.getWeather();
+        icon = dateWeather.getIcon();
+        temperature = dateWeather.getTemperature();
+    }
 }
