@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import zerobase.weather.WeatherApplication;
 import zerobase.weather.domain.DateWeather;
 import zerobase.weather.domain.Diary;
+import zerobase.weather.error.InvalidDate;
 import zerobase.weather.repository.DateWeatherRepository;
 import zerobase.weather.repository.DiaryRepository;
 
@@ -77,6 +78,9 @@ public class DiaryService {
 
     public List<Diary> readDiary(LocalDate date) {
         logger.debug("read diary");
+        if(date.isAfter(LocalDate.ofYearDay(3050,1)))
+            throw new InvalidDate();
+
         return diaryRepository.findAllByDate(date);
 
     }
